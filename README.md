@@ -1,48 +1,27 @@
-# OMR Auto Scoring Website
+# OMR Scanner PWA
 
-This repository now includes a complete website to:
+This repository now provides a browser-first OMR scanner that runs fully on the website and can be installed on mobile as an app.
 
-- Upload an **answer key sheet** image
-- Upload a **student OMR sheet** image
-- Automatically detect marked bubbles from variable layouts
-- Calculate **correct / wrong / blank / review needed** instantly
+Live site: `https://mdtonmoyfaraji.github.io/omr/`
 
-It is designed to work without fixed coordinates (layout-free row and bubble grouping), so you can scan different OMR styles quickly.
+## What it supports
 
-## Stack
+- Scan answer key and student sheet from phone camera/gallery
+- In-browser OMR parsing and scoring (no server call required)
+- PWA install (`Add to Home Screen` / install prompt)
+- Offline usage after first load (service worker cache)
+- Local recent result history on device
 
-- Frontend: HTML + JS (served by FastAPI)
-- Backend: FastAPI + OpenCV + NumPy
-- Test: Pytest
+## Use on mobile
 
-## Run locally
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
-
-Open: `http://127.0.0.1:8000`
-
-## API
-
-### `POST /api/score`
-
-Form-data fields:
-
-- `answer_key` (image file)
-- `omr_sheet` (image file)
-
-Response contains:
-
-- `summary` (total, correct, wrong, blank, review_needed)
-- `results` (per question verdict)
-- `warnings` (low-confidence or mismatch notes)
+1. Open the live site in Chrome/Safari.
+2. Install it from the browser install prompt or menu.
+3. Open the installed app from your home screen.
+4. Capture/upload answer key and student sheet.
+5. Tap **Scan & Score**.
 
 ## Notes
 
-- Works best on clear scans with good lighting.
-- Blurry or lightly filled bubbles are flagged as review-needed via confidence checks.
-- For full production “any layout, any quality” support, you can add a trained detection model fallback (YOLO/Document AI) on top of this base.
+- For best detection, keep sheet flat, visible, and well lit.
+- First online load is required so assets can be cached for offline use.
+- Existing FastAPI backend files are still present for local/server workflows, but GitHub Pages usage is fully static.
