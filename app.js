@@ -15,19 +15,30 @@ function idxToLabel(idx) {
   return String.fromCharCode(65 + idx);
 }
 
-function showPreview(input, img) {
+async function showPreview(input, img) {
   const file = input.files?.[0];
   if (!file) {
     img.classList.add("hidden");
     img.removeAttribute("src");
     return;
   }
-  img.src = URL.createObjectURL(file);
+
+  const bitmap = await createImageBitmap(file);
+  const maxWidth = 800;
+  const scale = Math.min(1, maxWidth / bitmap.width);
+  const width = Math.max(1, Math.round(bitmap.width * scale));
+  const height = Math.max(1, Math.round(bitmap.height * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(bitmap, 0, 0, width, height);
+  img.src = canvas.toDataURL("image/png");
   img.classList.remove("hidden");
 }
 
-answerKeyInput.addEventListener("change", () => showPreview(answerKeyInput, answerPreview));
-studentInput.addEventListener("change", () => showPreview(studentInput, studentPreview));
+answerKeyInput.addEventListener("change", () => showPreview(answerKeyInput, answerPreview).catch(() => {}));
+studentInput.addEventListener("change", () => showPreview(studentInput, studentPreview).catch(() => {}));
 
 function toGray(imageData) {
   const { data, width, height } = imageData;
