@@ -28,6 +28,24 @@
         <img id="studentPreview" class="preview hidden" alt="Student sheet preview" />
       </section>
 
+      <section class="card">
+        <h2>3) Scan Settings</h2>
+        <div class="formGrid">
+          <label>
+            Question number starts from
+            <input id="questionStartInput" type="number" min="1" step="1" value="1" />
+          </label>
+          <label>
+            Check from question
+            <input id="rangeStartInput" type="number" min="1" step="1" placeholder="e.g. 20" />
+          </label>
+          <label>
+            Check to question
+            <input id="rangeEndInput" type="number" min="1" step="1" placeholder="e.g. 30" />
+          </label>
+        </div>
+      </section>
+
       <section class="card actions">
         <button id="scanButton" type="button">Scan & Score</button>
         <button id="installButton" type="button" class="secondary hidden">Install App</button>
