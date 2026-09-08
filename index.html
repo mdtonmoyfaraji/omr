@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>OMR Scanner PWA</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>OMR Scanner</h1>
+        <p>Install on mobile and scan OMR sheets offline.</p>
+      </header>
+
+      <section class="card">
+        <h2>1) Answer Key</h2>
+        <input id="answerKeyInput" type="file" accept="image/*" capture="environment" />
+        <img id="answerPreview" class="preview hidden" alt="Answer key preview" />
+      </section>
+
+      <section class="card">
+        <h2>2) Student Sheet</h2>
+        <input id="studentInput" type="file" accept="image/*" capture="environment" />
+        <img id="studentPreview" class="preview hidden" alt="Student sheet preview" />
+      </section>
+
+      <section class="card actions">
+        <button id="scanButton" type="button">Scan & Score</button>
+        <button id="installButton" type="button" class="secondary hidden">Install App</button>
+      </section>
+
+      <section id="status" class="status"></section>
+      <section id="result" class="result"></section>
+
+      <section class="card">
+        <h2>Recent Results</h2>
+        <ul id="history" class="history"></ul>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
