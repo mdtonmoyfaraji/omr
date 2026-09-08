@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI OMR Scanner</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>AI OMR Scanner</h1>
+      <p class="subtitle">
+        Upload answer key + student OMR sheet. The system auto-detects bubbles from variable layouts and calculates score.
+      </p>
+
+      <form id="scanForm" class="card">
+        <label>
+          Answer Key Sheet (image)
+          <input type="file" name="answer_key" accept="image/*" required />
+        </label>
+
+        <label>
+          Student OMR Sheet (image)
+          <input type="file" name="omr_sheet" accept="image/*" required />
+        </label>
+
+        <button type="submit">Scan & Score</button>
+      </form>
+
+      <section id="status" class="status"></section>
+      <section id="result" class="result"></section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
