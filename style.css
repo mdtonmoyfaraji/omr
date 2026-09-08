@@ -53,6 +53,22 @@ input[type="file"] {
   padding: 10px;
 }
 
+input[type="number"] {
+  width: 100%;
+  background: #0b1222;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
 .preview {
   width: 100%;
   max-height: 220px;
@@ -68,6 +84,12 @@ input[type="file"] {
 
 .actions {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.formGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 button {
