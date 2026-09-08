@@ -48,8 +48,8 @@ def _preprocess(image: np.ndarray) -> np.ndarray:
 def _find_bubbles(binary: np.ndarray) -> List[Bubble]:
     contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     image_area = binary.shape[0] * binary.shape[1]
-    min_area = max(30, int(image_area * 0.00002))
-    max_area = int(image_area * 0.002)
+    min_area = max(30, int(image_area * 0.000015))
+    max_area = int(image_area * 0.02)
 
     bubbles: List[Bubble] = []
     for contour in contours:
