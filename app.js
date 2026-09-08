@@ -325,45 +325,54 @@ function renderResult(data) {
   const s = data.summary;
   const summary = document.createElement("div");
   summary.className = "grid";
-  summary.innerHTML = `
-    <div class="badge">Total: <b>${s.total}</b></div>
-    <div class="badge">Correct: <b>${s.correct}</b></div>
-    <div class="badge">Wrong: <b>${s.wrong}</b></div>
-    <div class="badge">Blank: <b>${s.blank}</b></div>
-    <div class="badge">Review: <b>${s.review_needed}</b></div>
-  `;
+  const summaryItems = [
+    ["Total", s.total],
+    ["Correct", s.correct],
+    ["Wrong", s.wrong],
+    ["Blank", s.blank],
+    ["Review", s.review_needed],
+  ];
+  summaryItems.forEach(([label, value]) => {
+    const badge = document.createElement("div");
+    badge.className = "badge";
+    const strong = document.createElement("b");
+    strong.textContent = String(value);
+    badge.append(`${label}: `, strong);
+    summary.appendChild(badge);
+  });
 
   const tableWrap = document.createElement("div");
   tableWrap.className = "tableWrap";
 
   const table = document.createElement("table");
   table.className = "table";
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>Q</th>
-        <th>Key</th>
-        <th>Student</th>
-        <th>Verdict</th>
-        <th>Confidence</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${data.results
-        .map(
-          (r) => `
-            <tr>
-              <td>${r.question}</td>
-              <td>${idxToLabel(r.key_option_index)}</td>
-              <td>${idxToLabel(r.student_option_index)}</td>
-              <td>${r.verdict}</td>
-              <td>${r.student_confidence}</td>
-            </tr>
-          `
-        )
-        .join("")}
-    </tbody>
-  `;
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  ["Q", "Key", "Student", "Verdict", "Confidence"].forEach((text) => {
+    const th = document.createElement("th");
+    th.textContent = text;
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+
+  const tbody = document.createElement("tbody");
+  data.results.forEach((r) => {
+    const tr = document.createElement("tr");
+    const values = [
+      r.question,
+      idxToLabel(r.key_option_index),
+      idxToLabel(r.student_option_index),
+      r.verdict,
+      r.student_confidence,
+    ];
+    values.forEach((value) => {
+      const td = document.createElement("td");
+      td.textContent = String(value);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.append(thead, tbody);
 
   tableWrap.appendChild(table);
   resultBox.append(summary, tableWrap);
